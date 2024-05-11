@@ -5,6 +5,23 @@ This is a hobby project I created to learn how to use compute shaders and GPU AP
 
 https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/a5110d44-2f3a-474e-a7a6-467755b2f99b
 
+## How To Use
+1. add **Indirect Draw Controller** componnent to your terrain game object, other required component will automatically add.
+
+![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/5b248e93-3421-4ead-9c65-7234c201279e)
+
+2. on the terrain inspector, choose **magic grass detail painter**, this painter can paint the terrain detail into select channel.
+
+![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/4e838025-4736-4b9f-abbb-61012be976a8)
+
+3. in the **Indirect Draw Controller** Component inspector, Add Magic Grass Render Model scriptable object into the model list, each model is pair with 1 detail map's channel,
+For example, the first model will pair with R channel of detail map, the second model will pair with G channel of the detail map.
+
+![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/bad867ee-25e8-484b-bae3-d6a3d9164848)
+
+4. you can create Magic Grass Render Model scriptable object by right click on the project window and select **Create/MagicGrass/MagicGrassRenderModel**
+
+![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/f5b0ff4c-f289-44fa-9aee-ba489494febf)
 
 ### Right now, the tool and script provided in the project has below features :
 
