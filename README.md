@@ -30,7 +30,7 @@ https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/a
 ![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/6270380a-8bd1-48e8-828b-7278eccfffc5)
 
 
-## This is not a production-ready proecjt:
+## This is not a production-ready project:
 
 - While it runs MUCH faster than regular instancing. It’s far from perfect. the culling logic and memory usage still has lots of space to improve. Also, LOD is not support yet . A good LOD impl  can save tons of perf as well. This project only serve as an example of using compute shader and how to working with unity terrain.
 - For production-ready foliage renderer please I recommend use foliage renderer or advance terrain grass plugin.
