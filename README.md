@@ -2,6 +2,10 @@
 
 This is a hobby project I created to learn how to use compute shaders and GPU APIs like **[Graphics.DrawMeshInstancedIndirect](https://docs.unity3d.com/ScriptReference/Graphics.DrawMeshInstancedIndirect.html)** to efficiently render large amounts of grass on a terrain.
 
+
+https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/15f129c1-14e1-454a-959e-801fca46c975
+
+
 ### Right now, the tool and script provided in the project has below features :
 
 - Runtime grass painting on terrain (store the painting result even in playmode)
@@ -10,6 +14,8 @@ This is a hobby project I created to learn how to use compute shaders and GPU AP
 - CPU-side culling (using **[https://docs.unity3d.com/Manual/CullingGroupAPI.html](https://docs.unity3d.com/Manual/CullingGroupAPI.html)**)
 - Interactive grass (interaction status is stored in a render texture, processed by another compute shader)
 - Grass direction aligns with the terrain's surface normals
+- Procedually spawn grass via selectable terrain layer
+- Procedually exclude grass via selectable terrain layer
 
 ## Here are the grass shader's features:
 
@@ -69,3 +75,9 @@ Based on the commit history, I wrote the project around 1 and half year ago. At 
 I also found that I blew up my vram before I implement the cpu-side culling and split the world with cells. Rightnow it use CullingGroup API since it’s dead-simple to implement, but a quadtree or use burst compiler with frustum culling on cpu side is also worth trying in the future.
 
 I put a lot of time implement all the shading logic/paramter of the grass shader (And the code is pretty dirty now….). Ghost of Tsushima GDC talk is my main inspiration.
+
+## References :
+[モバイル向け大量描画テクニック](https://www.youtube.com/watch?v=mmxpPDVskg0&t=187s)
+
+[Procedural Grass in 'Ghost of Tsushima'](https://www.youtube.com/watch?v=Ibe1JBF5i5Y)
+
