@@ -1,0 +1,288 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3865421652372209128
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 12
+  hdPluginSubTargetMaterialVersions:
+    m_Keys: []
+    m_Values: 
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Indirectdraw_variant0_shadergraph 1
+  m_Shader: {fileID: -6465566751694194690, guid: 672bddac08e59594292b7de35b9b8724, type: 3}
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  - _PROCEDURAL_INSTANCING_ON
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    MotionVector: User
+    RenderType: TransparentCutout
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  - RayTracingPrepass
+  - MOTIONVECTORS
+  - SHADOWCASTER
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: eb04da16cbc16c9488332336fb11b965, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GroundTintMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PathPaintMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - BOOLEAN_69B8B6763ACC4BDF80E41E7D28EF1753: 0
+    - _AO: 0
+    - _AddPrecomputedVelocity: 0
+    - _AlbedoMultiply: 1
+    - _AlphaClip: 1
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
+    - _BILLBOARD: 0
+    - _BendingFromSurfaceNoraml: 0
+    - _BendingFromTopStr: 0
+    - _BendingScale: 4
+    - _BezierInfluencePower: 1
+    - _BillboardEnabled: 0
+    - _Blend: 0
+    - _BlendMode: 0
+    - _BumpScale: 1
+    - _CameraDistanceScaleFactor: 0
+    - _CastShadows: 0
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _ConservativeDepthOffsetEnable: 0
+    - _Cull: 2
+    - _CullMode: 0
+    - _CullModeForward: 0
+    - _Cutoff: 0.5
+    - _DebugRotate: 1
+    - _DepthOffsetEnable: 0
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DistanceScaleFactor: 0.0225
+    - _DoubleSidedEnable: 1
+    - _DoubleSidedGIMode: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 0
+    - _EnableBlendModePreserveSpecularLighting: 1
+    - _EnableFogOnTransparent: 1
+    - _EnvironmentReflections: 1
+    - _FadeInDistance: 30
+    - _Float: 0
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _Glossness: 12
+    - _GlossyReflections: 0
+    - _GroundTintRange: 0
+    - _GroundTintStrength: 0.575
+    - _HasFlowerTop: 0
+    - _InteractMapSize: 512
+    - _IsGammaColorSpace: 0
+    - _MaxDistance: 150
+    - _Metallic: 0
+    - _MinAO: 0
+    - _NormalRoundBending: 0
+    - _ObjectPushDownStrength: 1
+    - _ObjectPushStrength: 3
+    - _ObjectSpaceXZcaling: 1.43
+    - _ObjectSpaceYScaling: 2.37
+    - _OcclusionStrength: 1
+    - _OpaqueCullMode: 1
+    - _PROCEDURAL_INSTANCING: 1
+    - _Parallax: 0.005
+    - _PushDownStrength: 1
+    - _PushStrength: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _RadomHeightRange: 0.2
+    - _RadomWidthRange: 0.3
+    - _RayTracing: 0
+    - _ReceiveShadows: 1
+    - _ReceivesSSR: 0
+    - _ReceivesSSRTransparent: 0
+    - _RefractionModel: 0
+    - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
+    - _Smoothness: 0
+    - _SmoothnessTextureChannel: 0
+    - _SpecAOMinMax: 0.73
+    - _SpecularHighlights: 1
+    - _SpecularShiness: 12
+    - _SpecularStrength: 1
+    - _SrcBlend: 1
+    - _StartFadeDistance: 120
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _SupportDecals: 0
+    - _Surface: 0
+    - _SurfaceType: 0
+    - _SwayAlongUv: 1
+    - _SwayAmplitude: 0.2
+    - _SwayFreq: 4
+    - _SwayVerticalAmplitude: 1
+    - _TranslucentSharpness: 4
+    - _TranslucentStrength: 1
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UseShadowThreshold: 0
+    - _VariantScale: 0.057
+    - _WiggleFrequency: 5
+    - _WigglePowerAfterPush: 2
+    - _Wind1Frequency: 4
+    - _Wind1Scale: 0.06
+    - _Wind1Strength: 0.5
+    - _Wind2Frequency: 2
+    - _Wind2Scale: 1
+    - _Wind2Strength: 0.15
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 1
+    - _bendingFromTopStr: 0
+    - _bendingNoraml: 0
+    - _bendingScale: 10
+    - _bezierInfluencePower: 1
+    - _hasFlowerTop: 1
+    - _xzBendingStr: 1
+    m_Colors:
+    - _BaseBottom: {r: 0, g: 0.4339623, b: 0.044107094, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseTop: {r: 1, g: 0, b: 0, a: 1}
+    - _BaseVariantColor: {r: 0.31283376, g: 0.6981132, b: 0.33594683, a: 1}
+    - _BezierMinMax: {r: 0, g: 2.23, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DebugColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FakeAOMinMax: {r: 0.52, g: 1, b: 0, a: 0}
+    - _Fake_AOMinMax: {r: -0.02, g: 1, b: 0, a: 0}
+    - _FireColor: {r: 11.984314, g: 0, b: 0, a: 0}
+    - _FreezeColor: {r: 0, g: 1.1797953, b: 1.9766746, a: 0}
+    - _LightDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _MotionInfluenceMinMax: {r: 0, g: 1, b: 0, a: 0}
+    - _MyMainLightColor: {r: 0, g: 0, b: 0, a: 0}
+    - _MyMainLightDirection: {r: -0.2473309, g: 0.7660445, b: 0.593299, a: 0}
+    - _NormalFadeMinMax: {r: 0, g: 100, b: 0, a: 0}
+    - _SpecAOMinMax: {r: 0.1, g: 1, b: 0, a: 0}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TopColor: {r: 0.454902, g: 0.6784314, b: 0.2901961, a: 1}
+    - _TopVariantColor: {r: 0.9787464, g: 0.033018887, b: 1, a: 1}
+    - _TranslucentAOMinMax: {r: 0, g: 1, b: 0, a: 0}
+    - _TranslucentColor: {r: 0.97972727, g: 1, b: 0, a: 1}
+    - _pushAwayData: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &100673600818691067
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

@@ -1,0 +1,99 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+struct InteractObjectData
+{
+    float3 Pos;
+    float Type;
+    float Radius;
+    float TrailRecoverSpeed;
+};
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> _InteractMap;
+Texture2D<float4> _HeightMap;
+SamplerState _HeightMapPointClampSampler;
+
+float _CellSize;
+float2 _CellId;
+float _InteractMapSize;
+float _DeltaTime;
+int _NumberOfObjects;
+StructuredBuffer<InteractObjectData> _ObjectPositionWSBuffer;
+float3 _InteractMotionCenterWS;
+float _TerrainSize;
+float _TwiceTerrainHeight;
+
+[numthreads(32, 32, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+
+    uint2 pixelId = uint2(((uint) (_CellSize * _CellId.x) + id.x), ((uint) (_CellSize * _CellId.y) + id.y));
+    float texelSizeWorldSpace = _TerrainSize / _InteractMapSize;
+    float3 wpos = float3(pixelId.x / _InteractMapSize, 0, pixelId.y / _InteractMapSize) * _TerrainSize + _InteractMotionCenterWS;
+    //TODO expose offset magic number
+    wpos += float3(0.5, 0, 0.5) * texelSizeWorldSpace * 2;
+    
+    float heightFromMap = _HeightMap.SampleLevel(_HeightMapPointClampSampler, (wpos.xz - _InteractMotionCenterWS.xz) / _TerrainSize, 1).r;
+    wpos.y = heightFromMap * _TwiceTerrainHeight;
+
+    float dt = max(0.0006, _DeltaTime);
+
+    uint hasInterct = 0;
+    //r = dirX,
+    //g = dirZ,
+    //b = trailRemain,
+    //a = type
+    float4 prevValues = _InteractMap[pixelId.xy];
+    
+    float2 prevDir = prevValues.rg;
+    float trailRemain = prevValues.b;
+    float interactType = floor(prevValues.a);
+    float trailRecoverSpeed = frac(prevValues.a) * 10;
+
+    float2 nextDir = prevDir;
+    float toValue = 0.0;
+    float2 toDir = float2(0, 0);
+
+    for (int i = 0; i < _NumberOfObjects; i++)
+    {
+        float3 diff = (wpos - _ObjectPositionWSBuffer[i].Pos);
+        float sqrDistance = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
+        float d = _ObjectPositionWSBuffer[i].Radius * 1.41;
+        if (sqrDistance <= (d * d))
+        {
+            hasInterct = 1;
+            //float2 dirFromCenter = (wpos - _ObjectPositionWSBuffer[i].Pos).xz;
+            //float2 dir = normalize(dirFromCenter);
+            // TODO fix magic number
+            float scalar01 = clamp(distance(wpos, _ObjectPositionWSBuffer[i].Pos) / _ObjectPositionWSBuffer[i].Radius, 0, 1);
+            float3 posDifferences = normalize(wpos - _ObjectPositionWSBuffer[i].Pos);
+            float2 dir = scalar01 * posDifferences.xz;
+            dir = dir;
+
+            toDir = dir;
+            toValue = 1.0;
+            interactType = _ObjectPositionWSBuffer[i].Type;
+            trailRecoverSpeed = _ObjectPositionWSBuffer[i].TrailRecoverSpeed;
+        }
+    }
+
+    if (hasInterct == 0 && interactType > 0 && trailRemain <= 0.1)
+    {
+        interactType = 0;
+    }
+
+    if (hasInterct == 0)
+    {
+        nextDir = lerp(prevDir, 0, max(0.0, trailRecoverSpeed * dt));
+        trailRemain = lerp(trailRemain, 0.0, max(0.0, trailRecoverSpeed * dt));
+    }
+
+    if (hasInterct == 1)
+    {
+        nextDir = lerp(prevDir, toDir, max(0.0001, 8 * dt));
+        trailRemain = lerp(trailRemain, toValue, max(0.0001, 8 * dt));
+    }
+    float storedTrailRecoverSpeed = trailRecoverSpeed * 0.1;
+    _InteractMap[pixelId.xy] = float4(nextDir.r, nextDir.g, trailRemain, interactType + storedTrailRecoverSpeed);
+}

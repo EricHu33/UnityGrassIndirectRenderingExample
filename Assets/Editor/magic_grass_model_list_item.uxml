@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Foldout text="Foldout" name="Foldout" style="margin-left: 0; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;">
+        <uie:EnumField label="MapSize" value="Center" name="MapSize" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+        <uie:IntegerField label="RandomSeed" value="42" name="RandomSeed" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+        <uie:PropertyField name="Mesh" label="Mesh" style="height: 18px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+        <uie:PropertyField name="InstanceMaterial" label="InstanceMaterial" style="height: 16px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+        <ui:IMGUIContainer name="ExcludeLayer" style="height: auto; flex-grow: initial;" />
+        <ui:Slider picking-mode="Ignore" label="SpawnExcludeThreshold" value="1" high-value="2" name="SpawnExcludeThreshold" show-input-field="true" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+        <ui:IMGUIContainer name="IncludeLayer" style="height: auto; flex-grow: initial; align-items: stretch;" />
+        <ui:Slider picking-mode="Ignore" label="SpawnIncludeThreshold" value="1" high-value="2" name="SpawnIncludeThreshold" show-input-field="true" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+        <ui:SliderInt picking-mode="Ignore" label="GrassDensity" value="1" high-value="16" name="GrassDensity" low-value="1" show-input-field="true" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+    </ui:Foldout>
+    <ui:VisualElement style="height: 11px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.51);" />
+</ui:UXML>

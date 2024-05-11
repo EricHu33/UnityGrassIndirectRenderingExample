@@ -1,0 +1,170 @@
+//https://github.com/ellioman/Indirect-Rendering-With-Compute-Shaders
+/*
+Copyright (C) 2017-2018 Elvar Orn Unnthorsson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel GrassCulling
+
+struct MeshData
+{
+    float3 Position;
+    float3 Forward;
+    float3 Up;
+    float MaxDrawDistance;
+    float BandsFading;
+    float Pad1;
+};
+
+float _MaxInstanceCount;
+float3 _CameraPositionWS;
+bool _EnabledCull;
+float4x4 _MagicGrassCameraMatrixVP;
+float2 _HiZTextureSize;
+int _GrassXYThreadsSize;
+float _FarDistance;
+float _IgnoreHiz;
+
+Texture2D<float4> _HiZMap;
+SamplerState sampler_HiZMap;
+RWStructuredBuffer<int> _InputCounterBuffer;
+
+StructuredBuffer<MeshData> _CullInputs;
+AppendStructuredBuffer<MeshData> _Lod0CullResult;
+
+inline uint IsVisibleAfterOcclusionCulling(float clipMinX, float clipMaxX, float clipMinY, float clipMaxY,
+                                           float clipMinZ)
+{
+    // Change it to 0 - 1 range
+    float2 minXY = float2(clipMinX, clipMinY) * 0.5 + 0.5;
+    float2 maxXY = float2(clipMaxX, clipMaxY) * 0.5 + 0.5;
+    // Calculate hi-Z buffer mip
+    int2 size = (maxXY - minXY) * _HiZTextureSize.xy;
+    float mip = ceil(log2(max(size.x, size.y)));
+    mip = clamp(mip, 0, 10);
+
+    // Texel footprint for the lower (finer-grained) level
+    float level_lower = max(mip - 1, 0);
+    float2 scale = exp2(-level_lower);
+    float2 a = floor(minXY * scale);
+    float2 b = ceil(maxXY * scale);
+    float2 dims = b - a;
+
+    // Use the lower level if we only touch <= 2 texels in both dimensions
+    if (dims.x <= 2 && dims.y <= 2)
+    {
+        mip = level_lower;
+    }
+
+    // find the max depth
+    // Hi-Z approach that allows for more samples.
+    // https://www.gamedev.net/blogs/entry/2249535-hierarchical-z-buffer-occlusion-culling-updated-07152011/
+    //const   int numSamples = 24;
+    const int xSamples = 8; // numSamples + 1;
+    const int ySamples = 25; // numSamples + 1;
+    const float widthSS = (maxXY.x - minXY.x);
+    const float heightSS = (maxXY.y - minXY.y);
+    const float maxSizeSS = max(widthSS * _HiZTextureSize.x, heightSS * _HiZTextureSize.y);
+    const float stepX = widthSS / xSamples;
+    const float stepY = heightSS / ySamples;
+
+    float HIZdepth = 1;
+    float yPos = minXY.y;
+    for (int y = 0; y < ySamples; ++y)
+    {
+        float xPos = minXY.x;
+        for (int x = 0; x < xSamples; ++x)
+        {
+            const float2 nCoords0 = float2(xPos, yPos);
+            HIZdepth = min(HIZdepth, _HiZMap.SampleLevel(sampler_HiZMap, nCoords0, mip).r);
+            xPos += stepX;
+        }
+        yPos += stepY;
+    }
+    return (1.0 - clipMinZ) > HIZdepth - 0.000015; // last is an epsilon
+}
+
+inline uint IsVisibleAfterFrustumCulling(float4 clipPos)
+{
+    return (clipPos.z > clipPos.w
+               || clipPos.x < -clipPos.w
+               || clipPos.x > clipPos.w
+               || clipPos.y < -clipPos.w
+               || clipPos.y > clipPos.w)
+               ? 0
+               : 1;
+}
+
+inline uint IsWithinViewDistance(float3 cameraPosWS, float3 worldPos, float farDistance)
+{
+    return distance(cameraPosWS, worldPos) < farDistance ? 1 : 0;
+}
+
+[numthreads(8, 8, 1)]
+inline void GrassCulling(uint3 id : SV_DispatchThreadID)
+{
+    int xMax = (int)_GrassXYThreadsSize;
+    int yMax = (int)_GrassXYThreadsSize;
+    int index = id.z * xMax * yMax + id.y * xMax + id.x;
+
+    if (index > _InputCounterBuffer[0])
+        return;
+    MeshData data = _CullInputs[index];
+
+    float3 minPos = data.Position + 1 * float3(0, 0.8, 0) - 1 * float3(0.75 * 0.5, 0.8, 0.75 * 0.5);
+    float3 maxPos = data.Position + 1 * float3(0, 0.8, 0) + 1 * float3(0.75 * 0.5, 0.8, 0.75 * 0.5);
+
+    float4 boxCorners[8];
+    boxCorners[0] = float4(minPos.x, minPos.y, minPos.z, 1.0);
+    boxCorners[1] = float4(minPos.x, minPos.y, maxPos.z, 1.0);
+    boxCorners[2] = float4(minPos.x, maxPos.y, minPos.z, 1.0);
+    boxCorners[3] = float4(minPos.x, maxPos.y, maxPos.z, 1.0);
+    boxCorners[4] = float4(maxPos.x, minPos.y, minPos.z, 1.0);
+    boxCorners[5] = float4(maxPos.x, minPos.y, maxPos.z, 1.0);
+    boxCorners[6] = float4(maxPos.x, maxPos.y, minPos.z, 1.0);
+    boxCorners[7] = float4(maxPos.x, maxPos.y, maxPos.z, 1.0);
+
+    float4 clipPos = mul(_MagicGrassCameraMatrixVP, boxCorners[0]);
+    uint isInFrustum = IsVisibleAfterFrustumCulling(clipPos);
+    uint isInViewDistance = IsWithinViewDistance(_CameraPositionWS, data.Position, _FarDistance);
+    //uint lodType = 0;
+
+    clipPos.xyz = clipPos.xyz / clipPos.w;
+    float clipMinX = clipPos.x;
+    float clipMaxX = clipPos.x;
+    float clipMinY = clipPos.y;
+    float clipMaxY = clipPos.y;
+    float clipMinZ = clipPos.z;
+    float clipMaxZ = clipPos.z;
+
+    [unroll]
+    for (int i = 1; i < 8; i++)
+    {
+        clipPos = mul(_MagicGrassCameraMatrixVP, boxCorners[i]);
+
+        isInFrustum = saturate(isInFrustum + IsVisibleAfterFrustumCulling(clipPos));
+        // For HiZ
+        clipPos.xyz = clipPos.xyz / clipPos.w;
+        clipMinX = min(clipPos.x, clipMinX);
+        clipMaxX = max(clipPos.x, clipMaxX);
+        clipMinY = min(clipPos.y, clipMinY);
+        clipMaxY = max(clipPos.y, clipMaxY);
+        clipMinZ = min(clipPos.z, clipMinZ);
+        clipMaxZ = max(clipPos.z, clipMaxZ);
+    }
+
+    uint isVisible = 1;
+    isVisible *= isInFrustum;
+    isVisible *= isInViewDistance;
+    isVisible *= (IsVisibleAfterOcclusionCulling(clipMinX, clipMaxX, clipMinY, clipMaxY, clipMinZ));
+    if (isVisible > 0)
+    {
+        _Lod0CullResult.Append(data);
+    }
+}

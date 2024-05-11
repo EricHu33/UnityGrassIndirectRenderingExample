@@ -1,0 +1,202 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel FetchGrass
+#ifndef SplitPatchNumber
+#define SplitPatchNumber 1
+#endif
+
+struct MeshData
+{
+    float3 Position;
+    float3 Forward;
+    float3 Up;
+    float MaxDrawDistance;
+    float BandsFading;
+    float Pad1;
+};
+
+inline float2 unity_voronoi_noise_randomVector(float2 UV, float offset)
+{
+    float2x2 m = float2x2(15.27, 47.63, 99.41, 89.98);
+    UV = frac(sin(mul(UV, m)) * 46839.32);
+    return float2(sin(UV.y * + offset) * 0.5 + 0.5, cos(UV.x * offset) * 0.5 + 0.5);
+}
+
+void Unity_Voronoi_float(float2 UV, float AngleOffset, float CellDensity, out float Out, out float Cells)
+{
+    float2 g = floor(UV * CellDensity);
+    float2 f = frac(UV * CellDensity);
+    float t = 8.0;
+    float3 res = float3(8.0, 0.0, 0.0);
+
+    for (int y = -1; y <= 1; y++)
+    {
+        for (int x = -1; x <= 1; x++)
+        {
+            float2 lattice = float2(x, y);
+            float2 offset = unity_voronoi_noise_randomVector(lattice + g, AngleOffset);
+            float d = distance(lattice + offset, f);
+            if (d < res.x)
+            {
+                res = float3(d, offset.x, offset.y);
+                Out = res.x;
+                Cells = res.y;
+            }
+        }
+    }
+}
+
+
+float hash12(float2 p)
+{
+    float3 p3 = frac(float3(p.xyx) * .1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return frac((p3.x + p3.y) * p3.z);
+}
+
+float2 hash22(float2 p)
+{
+    float3 p3 = frac(float3(p.xyx) * float3(.1031, .1030, .0973));
+    p3 += dot(p3, p3.yzx + 33.33);
+    return frac((p3.xx + p3.yz) * p3.zy);
+}
+
+float getDensityScale(float3 pos, float3 camPos, float closeDistance, float midDistance, float farDisatnce, float isFadeIn)
+{
+    float dMid = distance(pos, camPos) + isFadeIn * (midDistance - closeDistance);
+    float dFar = distance(pos, camPos) + isFadeIn * (farDisatnce - midDistance);
+    float scale = lerp(1.0, lerp(2.0, 4.0, step(midDistance, dMid)), step(closeDistance, dMid));
+    return scale;
+}
+
+float GetMaxDistance(float3 pos, float3 camPos, float closeDistance, float midDistance, float farDistance)
+{
+    float d = distance(pos, camPos);
+    float maxD = lerp(closeDistance, lerp(midDistance, farDistance, step(midDistance, d)), step(closeDistance, d));
+    return maxD;
+}
+
+#include "UnityCG.cginc"
+Texture2DArray<float4> _TerrainAlphaMaps;
+SamplerState _TerrainAlphaMapsPointClampSampler;
+
+Texture2D<float4> _DetailMap;
+
+SamplerState _DetailMapPointClampSampler;
+
+
+Texture2D<float4> _HeightMap;
+SamplerState _HeightMapPointClampSampler;
+
+Texture2D<float4> _NormalMap;
+SamplerState _NormalMapPointClampSampler;
+
+float2 _CellId;
+float _ExcludeThreshold;
+float _IncludeThreshold;
+
+float4 _ExcludeControls0;
+float4 _ExcludeControls1;
+float4 _IncludeControls0;
+float4 _IncludeControls1;
+
+int _RandomSeed;
+float4 _SplatChannels;
+float3 _TerrainPivotWS;
+float _TerrainSize;
+float _CellSize;
+float _MapSize;
+float _GrassDensity;
+float3 _CameraPositionWS;
+float _TwiceTerrainHeight;
+float _CloseDistance;
+float _MidDistance;
+float _FarDistance;
+
+AppendStructuredBuffer<MeshData> _DrawGrassResult;
+
+[numthreads(8, 8, 1)]
+void FetchGrass(uint3 id : SV_DispatchThreadID)
+{
+    float3 terrainCenter = _TerrainPivotWS;
+    float mapSize = _MapSize;//512.0
+    
+    float2 sampleUV = float2((_CellSize * _CellId.x + id.x) / mapSize, (_CellSize * _CellId.y + id.y) / mapSize);
+    
+    float4 detailMapValues = _DetailMap.SampleLevel(_DetailMapPointClampSampler, float3(sampleUV, 0), 1).rgba * _SplatChannels;
+    float detailMapValue = detailMapValues.r + detailMapValues.g + detailMapValues.b + detailMapValues.a;
+
+    float4 exlcludeValues0 = _TerrainAlphaMaps.SampleLevel(_TerrainAlphaMapsPointClampSampler, float3(sampleUV.xy, 0), 0).rgba;
+    exlcludeValues0 *= _ExcludeControls0;
+
+    float4 exlcludeValues1 = _TerrainAlphaMaps.SampleLevel(_TerrainAlphaMapsPointClampSampler, float3(sampleUV.xy, 1), 0).rgba;
+    exlcludeValues1 *= _ExcludeControls1;
+
+    float exlcludeValue = exlcludeValues0.r + exlcludeValues0.g + exlcludeValues0.b + exlcludeValues0.a;
+    exlcludeValue += exlcludeValues1.r + exlcludeValues1.g + exlcludeValues1.b + exlcludeValues1.a;
+    detailMapValue -= exlcludeValue * _ExcludeThreshold;
+
+
+    float4 includeValues0 = _TerrainAlphaMaps.SampleLevel(_TerrainAlphaMapsPointClampSampler, float3(sampleUV.xy, 0), 0).rgba;
+    includeValues0 *= _IncludeControls0;
+
+    float4 includeValues1 = _TerrainAlphaMaps.SampleLevel(_TerrainAlphaMapsPointClampSampler, float3(sampleUV.xy, 1), 0).rgba;
+    includeValues1 *= _IncludeControls1;
+
+    float includedValue = includeValues0.r + includeValues0.g + includeValues0.b + includeValues0.a
+    + includeValues1.r + includeValues1.g + includeValues1.b + includeValues1.a;
+    detailMapValue += includedValue * (2 - _IncludeThreshold);
+
+    //detailMapValue = detailMapValue;
+    float3 pixelPosWS = float3(sampleUV.x, 0, sampleUV.y) * _TerrainSize + terrainCenter;
+
+    float wsLengthPerPixel = _TerrainSize / mapSize;
+
+    float lengthBetweenGrassBlade = wsLengthPerPixel / _GrassDensity;
+
+    float3 wpos = pixelPosWS;
+    MeshData data;
+    //maybe unroll here
+    for (int i = 0; i < (int)_GrassDensity; i++)
+    {
+        float2 randOffset = float2(_RandomSeed, _RandomSeed);
+        wpos.xz += (hash22(float2(randOffset +wpos.xz + i * lengthBetweenGrassBlade)) - 0.5) * wsLengthPerPixel * 2;
+
+        
+        float heightFromMap = _HeightMap.SampleLevel(_HeightMapPointClampSampler, (wpos.xz - terrainCenter.xz) / _TerrainSize, 1).r;
+        wpos.y = heightFromMap * _TwiceTerrainHeight;
+        data.Position = wpos;
+
+        float3 bump = _NormalMap.SampleLevel(_NormalMapPointClampSampler, (wpos.xz - terrainCenter.xz) / _TerrainSize, 1).rgb;
+        data.Up = bump;
+
+        float voronoiNoise = 0;
+        float cells = 0;
+        Unity_Voronoi_float(wpos.xz, 0.3, 0.3, voronoiNoise, cells);
+        voronoiNoise = (voronoiNoise - 0.5) * 2;
+
+        data.Forward = float3(voronoiNoise, 0, -voronoiNoise)
+        + normalize(float3(
+            2 * (
+                hash12(wpos.xz * float2(1, -1) + float2(_RandomSeed, _RandomSeed)) - 1),
+                0,
+                2 * (hash12(wpos.xz * float2(-1, 1) + float2(-_RandomSeed, -_RandomSeed))) - 1
+            ));
+            
+            float densityScale = getDensityScale(wpos, _CameraPositionWS, _CloseDistance, _MidDistance, _FarDistance, 0);
+            float fadeInDensityScale = getDensityScale(wpos, _CameraPositionWS, _CloseDistance, _MidDistance, _FarDistance, 1);
+            data.MaxDrawDistance = GetMaxDistance(wpos, _CameraPositionWS, _CloseDistance, _MidDistance, _FarDistance);
+            data.BandsFading = i <= floor(_GrassDensity / fadeInDensityScale) ? 0 : 1;
+            data.Pad1 = 0;
+
+            float thresholdPerDensity = 1.0 / _GrassDensity;
+            float2 terrainUV = (wpos.xz - terrainCenter.xz) / _TerrainSize;
+            float isWithinTerrainUV01 = saturate(step(0, terrainUV.x) * step(0, terrainUV.y) * step(terrainUV.x, 1) * step(terrainUV.y, 1));
+            float isVisible = isWithinTerrainUV01;
+            isVisible *= step(((i + 1) * thresholdPerDensity - 0.05), detailMapValue);
+            isVisible *= step(i, floor(_GrassDensity / densityScale));
+            if (isVisible > 0)
+            {
+                _DrawGrassResult.Append(data);
+            }
+        }
+    }

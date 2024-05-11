@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: indirecdraw_code_shader
+  m_Shader: {fileID: 4800000, guid: 58baa8e216f58744888db503ede47c05, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BendingFromSurfaceNoraml: 0
+    - _BendingFromTopStr: 0
+    - _BillboardEnabled: 0
+    - _CameraDistanceScaleFactor: 1
+    - _DistanceScaleUpFactor: 0.0225
+    - _GroundTintRange: 0.8
+    - _GroundTintStrength: 1
+    - _HasFlowerTop: 0
+    - _ObjectSpaceXZscaling: 4
+    - _ObjectSpaceYScaling: 4
+    - _PushDownStrength: 0.5
+    - _PushStrength: 1
+    - _RadomHeightRange: 1
+    - _RadomWidthRange: 1
+    - _SpecularShiness: 18
+    - _SpecularStrength: 1
+    - _SwayAmplitude: 0.1
+    - _TranslucentSharpness: 4
+    - _TranslucentStrength: 0.5
+    - _VariantScale: 0
+    - _WiggleFrequency: 4
+    - _WigglePowerAfterPush: 1
+    - _Wind1Frequency: 6
+    - _Wind1Scale: 0.15
+    - _Wind1Strength: 0.25
+    m_Colors:
+    - _BaseColor: {r: 1, g: 0.43110603, b: 0, a: 1}
+    - _BaseVariantColor: {r: 0.33333334, g: 1, b: 0, a: 1}
+    - _DebugColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FakeAOMinMax: {r: 0.24, g: 1, b: 0, a: 0}
+    - _FireColor: {r: 1, g: 0, b: 0, a: 1}
+    - _FreezeColor: {r: 0, g: 0.8, b: 0, a: 1}
+    - _MotionInfluenceMinMax: {r: 0, g: 1, b: 0, a: 0}
+    - _NormalFadeMinMax: {r: 55, g: 75, b: 0, a: 0}
+    - _SpecAOMinMax: {r: 0, g: 1, b: 0, a: 0}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TopColor: {r: 0.33333334, g: 1, b: 0, a: 1}
+    - _TopVariantColor: {r: 0.33333334, g: 1, b: 0, a: 1}
+    - _TranslucentAOMinMax: {r: 0, g: 1, b: 0, a: 0}
+    - _TranslucentColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

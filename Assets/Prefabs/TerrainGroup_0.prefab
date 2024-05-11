@@ -1,0 +1,210 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7517268127253112199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7517268127253112195}
+  - component: {fileID: 7517268127253112196}
+  m_Layer: 0
+  m_Name: TerrainGroup_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7517268127253112195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127253112199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7517268127864878282}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7517268127253112196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127253112199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca34a6148db2d54493f84f379293f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroupID: 0
+--- !u!1 &7517268127864878286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7517268127864878282}
+  - component: {fileID: 7517268127864878285}
+  - component: {fileID: 7517268127864878283}
+  - component: {fileID: 1116873119}
+  - component: {fileID: 1916418609555472386}
+  - component: {fileID: 6454289917098769241}
+  - component: {fileID: 7510470283927811598}
+  m_Layer: 0
+  m_Name: Terrain_0_0_312ae597-cd6b-42d8-8dc6-865f2dc0d551
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7517268127864878282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127864878286}
+  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 49.1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7517268127253112195}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+--- !u!218 &7517268127864878285
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127864878286}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: 0732bcfb56aacaa46ba3d98cef0131ae, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 0
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 1
+  m_DrawTreesAndFoliage: 0
+  m_StaticShadowCaster: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 2100000, guid: 021375612f335a547b7351ef81a9520f, type: 2}
+  m_BakeLightProbesForTrees: 0
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ScaleInLightmap: 0.8
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+--- !u!154 &7517268127864878283
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127864878286}
+  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 15600000, guid: 0732bcfb56aacaa46ba3d98cef0131ae, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!114 &1116873119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127864878286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac8313e603a05a42bf9f1b14d4580c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1916418609555472386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127864878286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf5d2bde20523f4ab5e497c4722b898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _paintTextures:
+  - {fileID: 0}
+  - {fileID: 0}
+  _sourceTextures:
+  - {fileID: 1477873481989928689, guid: 0732bcfb56aacaa46ba3d98cef0131ae, type: 2}
+  - {fileID: 6666438454429387383, guid: 0732bcfb56aacaa46ba3d98cef0131ae, type: 2}
+--- !u!114 &6454289917098769241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127864878286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c68ee9ebe1bbc4d97491b7a16b78e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_interactMap: {fileID: 0}
+  m_magicGrassSetting: {fileID: 11400000, guid: 86a415713167cf4419af891584a82177, type: 2}
+--- !u!114 &7510470283927811598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517268127864878286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b1a548f737bd345b8a93fe90dcf59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DrawGrassCS: {fileID: 7200000, guid: bc5b0bf7c75b222499b91302afec62f6, type: 3}
+  FrustumCullingCS: {fileID: 7200000, guid: 3002b674f7f9e36478ad20baa519aaa9, type: 3}
+  _magicGrassSettingAsset: {fileID: 11400000, guid: 86a415713167cf4419af891584a82177, type: 2}
+  _iteractMotionController: {fileID: 6454289917098769241}
+  _detailLayers: {fileID: 11400000, guid: 1a65bd6ea13577a42a39b820ad8e5889, type: 2}
+  _magicGrassRenderModels:
+  - ID: 0
+    MapSize: 256
+    RandomSeed: 3
+    Mesh: {fileID: 3871139054534395178, guid: b6a14b546b2c0404db8364363573ca8a, type: 3}
+    InstanceMaterial: {fileID: 2100000, guid: 17eedce16ec87504b82b6ac990191f87, type: 2}
+    ExcludeLayer: {fileID: 8574412962073106934, guid: 6f5c0adac47828c4984851676a227c48, type: 2}
+    IncludeLayer: {fileID: 0}
+    GrassSpawnThreshold: 2
+    GrassDensity: 6
+  - ID: 1
+    MapSize: 256
+    RandomSeed: 1
+    Mesh: {fileID: -462981019419857548, guid: 727ce28c463c2bf4cb6a3a61226b6687, type: 3}
+    InstanceMaterial: {fileID: 2100000, guid: 0ed4b969b126d504fb8d4cf4aae5ed1d, type: 2}
+    ExcludeLayer: {fileID: 0}
+    IncludeLayer: {fileID: 0}
+    GrassSpawnThreshold: 1
+    GrassDensity: 1
