@@ -42,11 +42,6 @@ The overall logic structure is similar as this video
 [モバイル向け大量描画テクニック](https://www.youtube.com/watch?v=mmxpPDVskg0&t=187s)
 
 ### APIs I use
-
-To draw insane amount of foliage on a terrain in Unity,  **[Graphics.DrawMeshInstancedIndirect](https://docs.unity3d.com/ScriptReference/Graphics.DrawMeshInstancedIndirect.html)** (and RenderMeshIndirect) is the fastest way to do. Regular GPU Instancing in Unity limited the amount of objects in each batch to 1023, and might be lower depend on devices. Using InstancedIndirect bypass the draw limitation, basically we can draw A LOT MORE mesh in a single draw call.
-
-## Revised Sentence:
-
 For generating a massive amount of foliage on terrain in Unity, **[Graphics.DrawMeshInstancedIndirect](https://docs.unity3d.com/ScriptReference/Graphics.DrawMeshInstancedIndirect.html)**(and RenderMeshIndirect) offers the fastest approach. While regular GPU instancing in Unity limitseach batch to 1023 objects (or fewer depending on the device), InstancedIndirect bypasses this restriction, allowing us to draw significantly more meshes with a single call.
 
 ### Logic
