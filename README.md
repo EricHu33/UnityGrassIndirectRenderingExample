@@ -20,6 +20,7 @@ https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/1
 
 ## Here are the grass shader's features:
 
+- Custom code shader/ shader graph shader that support DrawInstancedIndirect.
 - Distance-based scaling (grass grows when within a certain distance, the concept is similar to the implementation in The Legend of Zelda: Breath of the Wild)
 - Wind, specular, translucent, and fake ambient occlusion effects
 - Grass Color Tinting based on terrain surface color
@@ -72,6 +73,7 @@ Some side note :
 - grass interaction is done by render the intereactable object’s influence into a Render texture(interactable map), using interactable object’s world position as uv. This step is perform in another compute shader, but wheather to use compute shader is optional. Since its totally doable using regular fragment shader to render the interactable map. Then, the grass shader will sample the interactable map with it’s world positon therefore create a illusion that objects interact with the grass.
 - The detailed map is store under unity’s terrain assets as a sub-asset. When entering the game it will become a texture 2d array via script.
 - Alhpa-test has a major performance hit, a simple mesh grass without alpha clipping can nearly double the framerate.
+- For grass shader, there's two version of it, one is pure custom code shader, the other one is shadergraph, There's some custom node trikery inside it to make shadergraph shader compatible with IndirectInstancing. But it works. 
 
 ## Summary :
 
