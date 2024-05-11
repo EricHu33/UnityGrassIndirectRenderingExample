@@ -16,6 +16,7 @@ https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/1
 - Grass direction aligns with the terrain's surface normals
 - Procedually spawn grass via selectable terrain layer
 - Procedually exclude grass via selectable terrain layer
+![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/9539d0f3-9d1f-4335-b44d-53551567ce22)
 
 ## Here are the grass shader's features:
 
@@ -23,6 +24,10 @@ https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/1
 - Wind, specular, translucent, and fake ambient occlusion effects
 - Grass Color Tinting based on terrain surface color
 - World-position-based color variation
+- Random Height/Scale variation option
+
+![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/6270380a-8bd1-48e8-828b-7278eccfffc5)
+
 
 ## This is not a production-ready proecjt:
 
@@ -81,3 +86,6 @@ I put a lot of time implement all the shading logic/paramter of the grass shader
 
 [Procedural Grass in 'Ghost of Tsushima'](https://www.youtube.com/watch?v=Ibe1JBF5i5Y)
 
+
+## Licenses Notice:
+The assets under folder [TerrainSampleAssets] is from Unity's Terrain Sample project, which is govern by [Unity's UCL](https://unity.com/legal/licenses/unity-companion-license) 
