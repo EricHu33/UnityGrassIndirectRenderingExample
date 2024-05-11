@@ -3,7 +3,7 @@
 This is a hobby project I created to learn how to use compute shaders and GPU APIs like **[Graphics.DrawMeshInstancedIndirect](https://docs.unity3d.com/ScriptReference/Graphics.DrawMeshInstancedIndirect.html)** to efficiently render large amounts of grass on a terrain.
 
 
-https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/15f129c1-14e1-454a-959e-801fca46c975
+https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/a5110d44-2f3a-474e-a7a6-467755b2f99b
 
 
 ### Right now, the tool and script provided in the project has below features :
