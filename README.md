@@ -35,6 +35,11 @@ For example, the first model will pair with R channel of detail map, the second 
 - Procedually exclude grass via selectable terrain layer
 ![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/9539d0f3-9d1f-4335-b44d-53551567ce22)
 
+## To make Object interact with grasses.
+
+![Store Img (25)](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/b65ed438-0458-4e71-9ad1-d0423fcc973f)
+
+
 ## Here are the grass shader's features:
 
 - All the grass motion and lighting can adjust along uv1(the second uv channel)'s y value. In short - the grass mesh's uv1 layout shoud be a straight line along Y direction.
