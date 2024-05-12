@@ -37,6 +37,7 @@ For example, the first model will pair with R channel of detail map, the second 
 
 ## Here are the grass shader's features:
 
+- All the grass motion and lighting can adjust along uv1(the second uv channel)'s y value. In shore - the grass mesh's uv1 layout shoud be a straight line along Y direction.
 - Custom code shader/ shader graph shader that support DrawInstancedIndirect.
 - Distance-based scaling (grass grows when within a certain distance, the concept is similar to the implementation in The Legend of Zelda: Breath of the Wild)
 - Wind, specular, translucent, and fake ambient occlusion effects
