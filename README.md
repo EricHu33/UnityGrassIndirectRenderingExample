@@ -37,15 +37,15 @@ For example, the first model will pair with R channel of detail map, the second 
 
 ## Here are the grass shader's features:
 
-- All the grass motion and lighting can adjust along uv1(the second uv channel)'s y value. In shore - the grass mesh's uv1 layout shoud be a straight line along Y direction.
+- All the grass motion and lighting can adjust along uv1(the second uv channel)'s y value. In short - the grass mesh's uv1 layout shoud be a straight line along Y direction.
 - Custom code shader/ shader graph shader that support DrawInstancedIndirect.
 - Distance-based scaling (grass grows when within a certain distance, the concept is similar to the implementation in The Legend of Zelda: Breath of the Wild)
 - Wind, specular, translucent, and fake ambient occlusion effects
 - Grass Color Tinting based on terrain surface color
 - World-position-based color variation
 - Random Height/Scale variation option
+![Store Img (24)](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/01e824fe-a577-4a42-bc7b-f7048b1a2f8f)
 
-![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/6270380a-8bd1-48e8-828b-7278eccfffc5)
 
 
 ## This is not a production-ready project:
