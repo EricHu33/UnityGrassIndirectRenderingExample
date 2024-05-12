@@ -6,6 +6,8 @@ This is a hobby project I created to learn how to use compute shaders and GPU AP
 https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/a5110d44-2f3a-474e-a7a6-467755b2f99b
 
 ## How To Use
+0. add **Hi-Z Buffer Controller** component to your main camera
+
 1. add **Indirect Draw Controller** componnent to your terrain game object, other required component will automatically add.
 
 ![image](https://github.com/EricHu33/UnityGrassIndirectRenderingExample/assets/13420668/5b248e93-3421-4ead-9c65-7234c201279e)
