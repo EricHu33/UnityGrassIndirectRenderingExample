@@ -101,6 +101,11 @@ I put a lot of time implement all the shading logic/paramter of the grass shader
 
 [Procedural Grass in 'Ghost of Tsushima'](https://www.youtube.com/watch?v=Ibe1JBF5i5Y)
 
+[NiloCat's instanced indirect example(this is a much simpler project for beginner)](https://github.com/ColinLeung-NiloCat/UnityURP-MobileDrawMeshInstancedIndirectExample)
+
+[How to make HDRP shadergraph shader become InstanceIndirect compatible](https://forum.unity.com/threads/hd-render-pipeline-and-instancedindirect.523105/#post-8725362)
+
+[How to make shadergraph shader become InstanceIndirect compatible - Cyanilux's Twtitter Posts](https://twitter.com/Cyanilux/status/1396848736022802435?s=20)
 
 ## Licenses Notice:
 The assets under folder [TerrainSampleAssets] is from Unity's Terrain Sample project, which is govern by [Unity's UCL](https://unity.com/legal/licenses/unity-companion-license) 
